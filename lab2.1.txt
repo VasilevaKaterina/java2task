@@ -1,0 +1,22 @@
+import java.util.Scanner;
+import java.util.regex.Pattern;
+public class Main {
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Введите дату в формате dd/mm/yyyy: ");
+
+        boolean pass_right = false;
+        while (pass_right == false) {
+            String day = in.nextLine();
+            if (( Pattern.compile("^(0[1-9]|[12]\\d|3[01])/([0][1-9]|1[0-2])/((?:1[6-9]|[2-9]\\d)\\d{2})$").matcher(day).find())==false){
+                pass_right = true;
+
+                if (pass_right == true)  {
+                    System.out.print("Введенное выражение не является корректной датой");
+                }
+            }else{
+                System.out.print("Введенное выражение является корректной датой");
+            }
+        }
+    }
+}

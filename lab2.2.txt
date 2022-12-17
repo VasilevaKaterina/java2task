@@ -1,0 +1,82 @@
+//1 вариант 
+
+import java.util.regex.Pattern;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String password1 = "Введите пароль: ";
+        System.out.print(password1);
+
+        boolean pass = false;
+        while (pass == false) {
+            String password = scan.nextLine();
+            if (password.length() >= 8) {
+                if ((Pattern.compile("[a-z]+").matcher(password).find()) == true) {
+                    if ((Pattern.compile("[A-Z]+").matcher(password).find()) == true) {
+                        if ((Pattern.compile("[а-я]+").matcher(password).find()) == false) {
+                            if ((Pattern.compile("[А-Я]+").matcher(password).find()) == false) {
+                                if ((Pattern.compile("[0-9]+").matcher(password).find()) == true) {
+                                    if ((Pattern.compile("[`!£№$;%:^&?*()¬+=<>#.,/]+").matcher(password).find()) == false) {
+                                        pass = true; //если всё верно, то true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (pass == true) {
+                System.out.print("Пароль надежен ");
+            } else {
+                System.out.print("Пароль ненадежен. Повторите ввод ");
+            }
+        }
+    }
+}
+
+
+
+//2 вариант
+
+import java.util.Scanner;
+import java.util.regex.*;
+public class Main {
+    public static void main(String[] args){
+        Scanner password = new Scanner(System.in);
+        System.out.print("Введите пароль ");
+        String pass = password.nextLine();
+
+        Pattern check_pass_in_gene = Pattern.compile("^[A-Za-z0-9_]{8,}$");//не менее 8 символов в пароле
+        Matcher matcher_check_pass_in_gene = check_pass_in_gene.matcher(pass);
+
+        Pattern check_pass_capital_let = Pattern.compile("[A-Z]"); //проверяем на заглавные буквы
+        Matcher matcher_check_pass_capital_let = check_pass_capital_let.matcher(pass);
+
+        Pattern check_pass_lowercase_let= Pattern.compile("[a-z]");//проверяем на строчные буквы
+        Matcher matcher_check_pass_lowercase_let = check_pass_lowercase_let.matcher(pass);
+
+        Pattern check_pass_numb = Pattern.compile("[0-9]");//проверяем на цифры
+        Matcher matcher_check_pass_numb = check_pass_numb.matcher(pass);
+
+        int cycle = 1;
+        while (cycle > 0) {
+            if (matcher_check_pass_in_gene.matches() && matcher_check_pass_capital_let.find() && matcher_check_pass_lowercase_let.find() && matcher_check_pass_numb.find()) { //заглав, строчн, цифры
+                System.out.print("Пароль надежен (*^‿^*) ");
+                break;
+            } else {
+                System.out.print("Пароль ненадежен (｡•́︿•̀｡). Повторите ввод ");
+                String _with_password_c = password.nextLine();
+                    }
+            }
+
+        }
+}
+
+
+
+
+
+
+
